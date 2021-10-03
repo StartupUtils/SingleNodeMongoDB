@@ -25,3 +25,32 @@ systemctl daemon-reload
 systemctl enable mongorun.service
 systemctl start mongorun.service
 ```
+
+#### Create an Ubuntu 18.04 Instance
+Make sure you select the startup script script you created
+  
+### Check if Mongo is Running after startup
+Sometimes the startup script is not run the first time the server boots up.
+
+SSH into the instance and run the following command.
+```
+docker ps
+```
+You should see something like this:
+```
+CONTAINER ID   IMAGE                         COMMAND                  CREATED        STATUS        PORTS                                           NAMES
+b61d8f755667   bitnami/mongodb-sharded:4.4   "/opt/bitnami/script…"   12 hours ago   Up 12 hours   27017/tcp                                       singlenodemongodb_mongodb-shard0_1
+570ce0ae0eca   bitnami/mongodb-sharded:4.4   "/opt/bitnami/script…"   12 hours ago   Up 12 hours   27017/tcp                                       singlenodemongodb_mongodb-cfg_1
+81590c82a113   bitnami/mongodb-sharded:4.4   "/opt/bitnami/script…"   12 hours ago   Up 12 hours   0.0.0.0:27017->27017/tcp, :::27017->27017/tcp   singlenodemongodb_mongodb-sharded_1
+
+```
+If you don't see Containers running, run the following:
+```
+bash /tmp/firstboot.exec  
+```
+then run check if Mongo is running again:
+```
+docker ps 
+```
+  
+**Note: Once Mongo is running, restart your server to make sure docker starts up when your server is restarted
