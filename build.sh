@@ -9,5 +9,5 @@ cd SingleNodeMongoDB
 
 cp mongorun.service /etc/systemd/system/mongorun.service
 
-docker-compose up
-docker-compose build -d
+systemctl enable mongorun.service
+systemctl start mongorun.service
