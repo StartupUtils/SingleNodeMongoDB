@@ -1,4 +1,4 @@
-# SingleNodeMongoDB
+# Single Node MongoDB Instance
 
 ### Deploy a single instance of MongoDB on [Vultr](https://my.vultr.com/)
 
