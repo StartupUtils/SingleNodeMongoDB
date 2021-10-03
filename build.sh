@@ -1,13 +1,8 @@
-snap install docker
-apt  install docker-compose
-
-echo "MONGO_PASSWORD=<password>" > .env
+snap install docker -y
+apt install docker-compose -y
 
 git clone https://github.com/StartupUtils/SingleNodeMongoDB.git
 
-cd SingleNodeMongoDB
-
-cp mongorun.service /etc/systemd/system/mongorun.service
-
-systemctl enable mongorun.service
-systemctl start mongorun.service
+cp -r /tmp/SingleNodeMongoDB /home
+echo "export MONGO_PASSWORD=rootpassword" > /home/SingleNodeMongoDB/.env
+cp /home/SingleNodeMongoDB/mongorun.service /etc/systemd/system/mongorun.service
