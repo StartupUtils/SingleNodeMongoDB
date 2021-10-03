@@ -1,3 +1,5 @@
+#!/bin/sh
+
 cd /home/SingleNodeMongoDB
 
 docker-compose build
