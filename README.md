@@ -52,5 +52,9 @@ then run check if Mongo is running again:
 ```
 docker ps 
 ```
+If it is note running, try to run the following command:
+```
+systemctl start mongorun.service
+```
   
 **Note: Once Mongo is running, restart your server to make sure docker starts up when your server is restarted
