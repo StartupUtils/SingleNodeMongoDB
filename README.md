@@ -8,7 +8,7 @@
 #### Go to Vultr and Create a new Startup Script with the code below.
 This script will install docker and docker-compose, clone the Mongo Files, set the Mongo Password, and set up reboot logic so Mongo starts up when the node is restarted. 
 
-**NOTE: Make sure you replace <ADD PASSWORDD HERE> with your Mongo password
+**NOTE: Make sure you replace "ADD PASSWORDD HERE" with your Mongo password
 ```
 #!/bin/sh
 
@@ -18,7 +18,7 @@ apt install docker-compose -y
 git clone https://github.com/StartupUtils/SingleNodeMongoDB.git
 
 cp -r /tmp/SingleNodeMongoDB /home/
-echo "MONGO_PASSWORD=<ADD PASSWORDD HERE>" > /home/SingleNodeMongoDB/.env
+echo "MONGO_PASSWORD=ADD PASSWORDD HERE" > /home/SingleNodeMongoDB/.env
 cp /home/SingleNodeMongoDB/mongorun.service /etc/systemd/system/mongorun.service
 
 systemctl daemon-reload
