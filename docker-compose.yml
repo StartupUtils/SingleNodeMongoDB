@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.3'
 
 services:
   mongodb-sharded:
@@ -9,7 +9,9 @@ services:
       - MONGODB_CFG_PRIMARY_HOST=mongodb-cfg
       - MONGODB_CFG_REPLICA_SET_NAME=cfgreplicaset
       - MONGODB_REPLICA_SET_KEY=replicasetkey123
-      - MONGODB_ROOT_PASSWORD=${MONGO_PASSWORD}
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGODB_ROOT_PASSWORD=password
+      - MONGO_INITDB_ROOT_PASSWORD=password
     ports:
       - "27017:27017"
 
@@ -19,7 +21,9 @@ services:
       - MONGODB_ADVERTISED_HOSTNAME=mongodb-shard0
       - MONGODB_SHARDING_MODE=shardsvr
       - MONGODB_MONGOS_HOST=mongodb-sharded
-      - MONGODB_ROOT_PASSWORD=${MONGO_PASSWORD}
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGODB_ROOT_PASSWORD=password
+      - MONGO_INITDB_ROOT_PASSWORD=password
       - MONGODB_REPLICA_SET_MODE=primary
       - MONGODB_REPLICA_SET_KEY=replicasetkey123
       - MONGODB_REPLICA_SET_NAME=shard0
@@ -31,7 +35,9 @@ services:
     environment:
       - MONGODB_ADVERTISED_HOSTNAME=mongodb-cfg
       - MONGODB_SHARDING_MODE=configsvr
-      - MONGODB_ROOT_PASSWORD=${MONGO_PASSWORD}
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGODB_ROOT_PASSWORD=password
+      - MONGO_INITDB_ROOT_PASSWORD=password
       - MONGODB_REPLICA_SET_MODE=primary
       - MONGODB_REPLICA_SET_KEY=replicasetkey123
       - MONGODB_REPLICA_SET_NAME=cfgreplicaset
