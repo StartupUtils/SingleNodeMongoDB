@@ -4,26 +4,22 @@ services:
   mongodb-sharded:
     image: docker.io/bitnami/mongodb-sharded:4.4
     environment:
-      - MONGODB_ADVERTISED_HOSTNAME=mongodb-sharded
+      - MONGODB_ADVERTISED_HOSTNAME=singlenodemongodb_mongodb-sharded_1
       - MONGODB_SHARDING_MODE=mongos
       - MONGODB_CFG_PRIMARY_HOST=mongodb-cfg
       - MONGODB_CFG_REPLICA_SET_NAME=cfgreplicaset
       - MONGODB_REPLICA_SET_KEY=replicasetkey123
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGODB_ROOT_PASSWORD=password
-      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_PASSWORD}
     ports:
       - "27017:27017"
 
   mongodb-shard0:
     image: docker.io/bitnami/mongodb-sharded:4.4
     environment:
-      - MONGODB_ADVERTISED_HOSTNAME=mongodb-shard0
+      - MONGODB_ADVERTISED_HOSTNAME=singlenodemongodb_mongodb-shard0_1
       - MONGODB_SHARDING_MODE=shardsvr
       - MONGODB_MONGOS_HOST=mongodb-sharded
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGODB_ROOT_PASSWORD=password
-      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGODB_ROOT_PASSWORD=${MONGO_PASSWORD}
       - MONGODB_REPLICA_SET_MODE=primary
       - MONGODB_REPLICA_SET_KEY=replicasetkey123
       - MONGODB_REPLICA_SET_NAME=shard0
@@ -33,11 +29,9 @@ services:
   mongodb-cfg:
     image: docker.io/bitnami/mongodb-sharded:4.4
     environment:
-      - MONGODB_ADVERTISED_HOSTNAME=mongodb-cfg
+      - MONGODB_ADVERTISED_HOSTNAME=singlenodemongodb_mongodb-cfg_1
       - MONGODB_SHARDING_MODE=configsvr
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGODB_ROOT_PASSWORD=password
-      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGODB_ROOT_PASSWORD=${MONGO_PASSWORD}
       - MONGODB_REPLICA_SET_MODE=primary
       - MONGODB_REPLICA_SET_KEY=replicasetkey123
       - MONGODB_REPLICA_SET_NAME=cfgreplicaset
