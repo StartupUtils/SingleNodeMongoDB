@@ -1,45 +1,24 @@
-version: '3.3'
-
+version: '3.7'
 services:
-  mongodb-sharded:
-    image: docker.io/bitnami/mongodb-sharded:4.4
+  mongodb_container:
+    image: mongo:latest
     environment:
-      - MONGODB_ADVERTISED_HOSTNAME=mongodb-sharded
-      - MONGODB_SHARDING_MODE=mongos
-      - MONGODB_CFG_PRIMARY_HOST=mongodb-cfg
-      - MONGODB_CFG_REPLICA_SET_NAME=cfgreplicaset
-      - MONGODB_REPLICA_SET_KEY=replicasetkey123
-      - MONGODB_ROOT_PASSWORD=${MONGO_PASSWORD}
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
     ports:
-      - "27017:27017"
-
-  mongodb-shard0:
-    image: docker.io/bitnami/mongodb-sharded:4.4
-    environment:
-      - MONGODB_ADVERTISED_HOSTNAME=mongodb-shard0
-      - MONGODB_SHARDING_MODE=shardsvr
-      - MONGODB_MONGOS_HOST=mongodb-sharded
-      - MONGODB_ROOT_PASSWORD=${MONGO_PASSWORD}
-      - MONGODB_REPLICA_SET_MODE=primary
-      - MONGODB_REPLICA_SET_KEY=replicasetkey123
-      - MONGODB_REPLICA_SET_NAME=shard0
+      - 27017:27017
     volumes:
-      - 'shard0_data:/bitnami'
+      - mongodb_data_container:/data/db
 
-  mongodb-cfg:
-    image: docker.io/bitnami/mongodb-sharded:4.4
-    environment:
-      - MONGODB_ADVERTISED_HOSTNAME=mongodb-cfg
-      - MONGODB_SHARDING_MODE=configsvr
-      - MONGODB_ROOT_PASSWORD=${MONGO_PASSWORD}
-      - MONGODB_REPLICA_SET_MODE=primary
-      - MONGODB_REPLICA_SET_KEY=replicasetkey123
-      - MONGODB_REPLICA_SET_NAME=cfgreplicaset
+  qdrant:
+    image: qdrant/qdrant
+    ports:
+      - 6333:6333
     volumes:
-      - 'cfg_data:/bitnami'
+      - ./config.yaml:/qdrant/config/production.yaml
+      - qdrant_data:/qdrant/storage
 
 volumes:
-  shard0_data:
-    driver: local
-  cfg_data:
-    driver: local
+  mongodb_data_container:
+  qdrant_data:
+
